@@ -33,7 +33,12 @@ public class MqttConfig {
         DefaultMqttPahoClientFactory factory = new DefaultMqttPahoClientFactory();
         MqttConnectOptions options = new MqttConnectOptions();
 
-        options.setServerURIs(new String[] {"tcp://localhost:1883"});
+//        options.setServerURIs(new String[] {"tcp://localhost:1883"});
+//        options.setUserName("admin");
+//        String pass = "12345678";
+//        options.setPassword(pass.toCharArray());
+
+        options.setServerURIs(new String[] {"ssl://9cda2f113a8d4070b2c7d49615b3553e.s1.eu.hivemq.cloud:8883"});
         options.setUserName("admin");
         String pass = "12345678";
         options.setPassword(pass.toCharArray());
