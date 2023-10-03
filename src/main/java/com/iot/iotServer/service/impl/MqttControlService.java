@@ -33,7 +33,7 @@ public class MqttControlService {
     public void controlLightAndFan(ControlLogDTO model) {
         String topic = "control";
         try {
-            mqttGateway.senToMqtt(model.getLightStatus().toString() + model.getFanStatus().toString(), topic);
+            mqttGateway.senToMqtt(model.getLightStatus().toString()+ " " + model.getFanStatus().toString(), topic);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

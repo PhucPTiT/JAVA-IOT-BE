@@ -9,6 +9,7 @@ import com.iot.iotServer.models.DataSensor;
 import com.iot.iotServer.repository.ControlLogRepository;
 import com.iot.iotServer.repository.DataSensorRepository;
 import com.iot.iotServer.service.InterfaceIOTService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class IOTService implements InterfaceIOTService {
     @Autowired
     private ControlLogRepository controlLogRepository;
