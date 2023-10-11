@@ -38,7 +38,7 @@ public class MqttConfig {
 //        String pass = "12345678";
 //        options.setPassword(pass.toCharArray());
 
-        options.setServerURIs(new String[] {"ssl://ff4dbeb1a8c442768090fd239eeeacc1.s1.eu.hivemq.cloud:8883"});
+        options.setServerURIs(new String[] {"ssl://e6fb6f09c32b4449a0aa0911e7565c47.s1.eu.hivemq.cloud:8883"});
         options.setUserName("admin");
         String pass = "12345678";
         options.setPassword(pass.toCharArray());
