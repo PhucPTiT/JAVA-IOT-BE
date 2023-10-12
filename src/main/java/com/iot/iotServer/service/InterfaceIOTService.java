@@ -13,5 +13,5 @@ public interface InterfaceIOTService {
     ControlLogDTO getFirstControlLog();
     DataSensorDTO getFirstDataSensor();
 
-    Page<DataSensor> getDataPana(int page, int size);
+    Page<DataSensor> getDataPana(int page, int size, String sd, String ed);
 }

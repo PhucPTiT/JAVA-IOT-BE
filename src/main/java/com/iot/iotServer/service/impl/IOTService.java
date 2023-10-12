@@ -17,6 +17,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,10 +79,16 @@ public class IOTService implements InterfaceIOTService {
     }
 
     @Override
-    public Page<DataSensor> getDataPana(int page, int size) {
+    public Page<DataSensor> getDataPana(int page, int size, String sd, String ed) {
         Sort sort = Sort.by(Sort.Direction.DESC, "time");
         Pageable pageable = PageRequest.of(page, size, sort);
-        Page<DataSensor> dataSensorPage = dataSensorRepository.findAll(pageable);
+        Page<DataSensor> dataSensorPage;
+        if("".equals(sd) && "".equals(ed)) {
+            dataSensorPage = dataSensorRepository.findAll(pageable);
+        } else {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
+            dataSensorPage = dataSensorRepository.filterData(LocalDateTime.parse(sd, formatter), LocalDateTime.parse(ed, formatter), pageable);
+        }
         return dataSensorPage;
     }
 }

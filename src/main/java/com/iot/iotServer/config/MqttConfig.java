@@ -111,6 +111,4 @@ public class MqttConfig {
         messageHandler.setDefaultRetained(false);
         return messageHandler;
     }
-
-
 }
