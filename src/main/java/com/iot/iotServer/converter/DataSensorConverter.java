@@ -18,6 +18,7 @@ public class DataSensorConverter {
         dataSensor.setTemp(dto.getTemp());
         dataSensor.setTime(LocalDateTime.now());
         dataSensor.setHumidity(dto.getHumidity());
+        dataSensor.setDust(dto.getDust());
         return dataSensor;
     }
 
@@ -27,6 +28,7 @@ public class DataSensorConverter {
         dto.setBrightness(entity.getBrightness());
         dto.setTemp(entity.getTemp());
         dto.setHumidity(entity.getHumidity());
+        dto.setDust(entity.getDust());
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String timeAsString = entity.getTime().format(formatter);

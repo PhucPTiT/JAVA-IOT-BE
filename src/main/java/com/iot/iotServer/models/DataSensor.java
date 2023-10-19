@@ -15,6 +15,7 @@ public class DataSensor {
     private String temp;
     private String humidity;
     private String brightness;
+    private String dust;
 
     @Column(name = "record_time")
     private LocalDateTime time;

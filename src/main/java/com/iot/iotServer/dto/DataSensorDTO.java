@@ -13,6 +13,7 @@ public class DataSensorDTO {
     private String temp;
     private String humidity;
     private String brightness;
+    private String dust;
 
 //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String time;
