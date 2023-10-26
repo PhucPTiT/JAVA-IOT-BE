@@ -12,8 +12,9 @@ public class ControlLog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Boolean lightStatus;
-    private Boolean FanStatus;
+    private String device;
+    private Boolean status;
+
 
     @Column(name = "record_time")
     private LocalDateTime time;

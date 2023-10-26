@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
 
 @Data
 public class ControlLogDTO {
-    private Long id;
-    private Boolean lightStatus;
-    private Boolean FanStatus;
+    private Long id;;
+    private String device;
+    private Boolean status;
     private LocalDateTime time;
 }

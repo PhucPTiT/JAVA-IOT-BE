@@ -23,8 +23,9 @@ public class DataLogAPI {
     public Page<DataSensor> getPangation(@RequestParam(name = "page", defaultValue = "1") int page,
                                          @RequestParam(name = "size", defaultValue = "30") int size,
                                          @RequestParam(name = "sd", defaultValue = "") String sd,
-                                         @RequestParam(name = "ed", defaultValue = "") String ed) {
-        return iotService.getDataPana(page, size, sd, ed);
+                                         @RequestParam(name = "ed", defaultValue = "") String ed,
+                                         @RequestParam(name = "key", defaultValue = "") String key) {
+        return iotService.getDataPana(page, size, sd, ed, key);
     }
 
 }

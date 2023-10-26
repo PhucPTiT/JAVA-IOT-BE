@@ -20,6 +20,12 @@ public interface DataSensorRepository extends JpaRepository<DataSensor, Long> {
     @Query("SELECT d FROM DataSensor d ORDER BY d.time DESC LIMIT 10")
     List<DataSensor> GetTenDataSensor();
 
-    @Query("SELECT d FROM DataSensor d WHERE d.time BETWEEN :sd AND :ed ORDER BY d.time DESC")
-    Page<DataSensor> filterData(@Param("sd") LocalDateTime sd, @Param("ed") LocalDateTime ed, Pageable pageable);
+    @Query("SELECT d FROM DataSensor d " +
+            "WHERE " +
+            "(d.brightness LIKE CONCAT('%', :key, '%') " +
+            "OR d.temp LIKE CONCAT('%', :key, '%') " +
+            "OR d.humidity LIKE CONCAT('%', :key, '%')) " +
+            "AND (COALESCE(:sd, '') = '' OR (d.time BETWEEN :sd AND :ed)) " +
+            "ORDER BY d.time DESC")
+    Page<DataSensor> filterData(@Param("sd") LocalDateTime sd, @Param("ed") LocalDateTime ed,@Param("key") String key, Pageable pageable);
 }

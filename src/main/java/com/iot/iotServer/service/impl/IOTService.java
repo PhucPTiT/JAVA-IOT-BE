@@ -44,6 +44,11 @@ public class IOTService implements InterfaceIOTService {
     }
 
     @Override
+    public ControlLogDTO updateControl(ControlLogDTO controlLogDTO) {
+        return null;
+    }
+
+    @Override
     public List<ControlLogDTO> getAllControlLog() {
         List<ControlLog> controlLogs = controlLogRepository.findAll();
         List<ControlLogDTO> controlLogDTOs = new ArrayList<>();
@@ -56,8 +61,20 @@ public class IOTService implements InterfaceIOTService {
     }
 
     @Override
-    public ControlLogDTO getFirstControlLog() {
-        ControlLog controlLog = controlLogRepository.findLastControlLog();
+    public ControlLogDTO getFanControlLogFirst() {
+        ControlLog controlLog = controlLogRepository.findLastControlLogByDevice("fan");
+        if (controlLog == null) {
+            return null;
+        }
+        return controlLogConverter.toDTO(controlLog);
+    }
+
+    @Override
+    public ControlLogDTO getLightControlLogFirst() {
+        ControlLog controlLog = controlLogRepository.findLastControlLogByDevice("light");
+        if (controlLog == null) {
+            return null;
+        }
         return controlLogConverter.toDTO(controlLog);
     }
 
@@ -79,17 +96,38 @@ public class IOTService implements InterfaceIOTService {
     }
 
     @Override
-    public Page<DataSensor> getDataPana(int page, int size, String sd, String ed) {
+    public Page<DataSensor> getDataPana(int page, int size, String sd, String ed, String key) {
         Sort sort = Sort.by(Sort.Direction.DESC, "time");
         Pageable pageable = PageRequest.of(page, size, sort);
         Page<DataSensor> dataSensorPage;
         if("".equals(sd) && "".equals(ed)) {
-            dataSensorPage = dataSensorRepository.findAll(pageable);
+            if("".equals(key)) {
+                dataSensorPage = dataSensorRepository.findAll(pageable);
+            } else {
+                dataSensorPage = dataSensorRepository.filterData(null,null,key, pageable);
+            }
+
         } else {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
-            dataSensorPage = dataSensorRepository.filterData(LocalDateTime.parse(sd, formatter), LocalDateTime.parse(ed, formatter), pageable);
+            if ("".equals(key)) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
+                dataSensorPage = dataSensorRepository.filterData(LocalDateTime.parse(sd, formatter), LocalDateTime.parse(ed, formatter), "", pageable);
+            } else {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
+                dataSensorPage = dataSensorRepository.filterData(LocalDateTime.parse(sd, formatter), LocalDateTime.parse(ed, formatter), key, pageable);
+            }
         }
         return dataSensorPage;
     }
+
+    @Override
+    public void deleteByControlId(Long id) {
+        controlLogRepository.deleteById(id);
+    }
+
+    @Override
+    public void deleteByDataId(Long id) {
+        dataSensorRepository.deleteById(id);
+    }
+
 }
 

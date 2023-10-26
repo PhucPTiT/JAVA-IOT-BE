@@ -35,9 +35,30 @@ public class ControlLogAPI {
         return iotService.getAllControlLog();
     }
 
-    @GetMapping("/first")
-    public ControlLogDTO getFirstControlLog() {
-        return iotService.getFirstControlLog();
+    @GetMapping("/first/fan")
+    public ControlLogDTO getFanControlLogFirst() {
+        return iotService.getFanControlLogFirst();
+    }
+
+    @GetMapping("/first/light")
+    public ControlLogDTO getLightControlLogFirst() {
+        return iotService.getLightControlLogFirst();
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<ControlLogDTO> updateControlLog(@RequestBody ControlLogDTO model, @PathVariable("id") long id) {
+        try {
+            model.setId(id);
+            return ResponseEntity.ok(iotService.updateControl(model));
+        } catch (RuntimeException ex) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+    }
+    @DeleteMapping(value = "/{id}")
+    public void delete(@PathVariable("id") Long id) {
+        iotService.deleteByControlId(id);
     }
 
 }
+
+
