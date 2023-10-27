@@ -17,4 +17,5 @@ public interface InterfaceIOTService {
     Page<DataSensor> getDataPana(int page, int size, String sd, String ed, String key);
     void deleteByControlId(Long id);
     void deleteByDataId(Long id);
+    DataSensorDTO updateData(DataSensorDTO dataSensorDTO);
 }

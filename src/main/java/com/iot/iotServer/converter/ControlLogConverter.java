@@ -31,6 +31,12 @@ public class ControlLogConverter {
         return dto;
     }
 
+    public ControlLog toEntity(ControlLogDTO dto, ControlLog existingControlLog) {
+        existingControlLog.setDevice(dto.getDevice());
+        existingControlLog.setStatus(dto.getStatus());
+        return existingControlLog;
+    }
+
     private LocalDateTime getCurrentTimeInLocalZone() {
         ZoneId localZone = ZoneId.of(LOCAL_TIMEZONE);
         ZonedDateTime localTime = ZonedDateTime.now(localZone);

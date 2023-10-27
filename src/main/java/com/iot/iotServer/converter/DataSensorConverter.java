@@ -26,6 +26,14 @@ public class DataSensorConverter {
         return dataSensor;
     }
 
+    public DataSensor toEntity(DataSensorDTO dto, DataSensor dataSensor) {
+        dataSensor.setBrightness(dto.getBrightness());
+        dataSensor.setTemp(dto.getTemp());
+        dataSensor.setHumidity(dto.getHumidity());
+        dataSensor.setDust(dto.getDust());
+        return dataSensor;
+    }
+
     public DataSensorDTO toDTO(DataSensor entity) {
         DataSensorDTO dto = new DataSensorDTO();
         dto.setId(entity.getId());

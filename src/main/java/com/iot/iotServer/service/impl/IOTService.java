@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -45,6 +46,11 @@ public class IOTService implements InterfaceIOTService {
 
     @Override
     public ControlLogDTO updateControl(ControlLogDTO controlLogDTO) {
+        Optional<ControlLog> optiControlLogEX = controlLogRepository.findById(controlLogDTO.getId());
+        if(optiControlLogEX.isPresent()) {
+            ControlLog controlLogEX = optiControlLogEX.get();
+            return controlLogConverter.toDTO(controlLogRepository.save(controlLogConverter.toEntity(controlLogDTO, controlLogEX)));
+        }
         return null;
     }
 
@@ -127,6 +133,16 @@ public class IOTService implements InterfaceIOTService {
     @Override
     public void deleteByDataId(Long id) {
         dataSensorRepository.deleteById(id);
+    }
+
+    @Override
+    public DataSensorDTO updateData(DataSensorDTO dataSensorDTO) {
+        Optional<DataSensor> optiDataSensonEX = dataSensorRepository.findById(dataSensorDTO.getId());
+        if(optiDataSensonEX.isPresent()) {
+            DataSensor dataSensor = optiDataSensonEX.get();
+            return dataSensorConverter.toDTO(dataSensorRepository.save(dataSensorConverter.toEntity(dataSensorDTO, dataSensor)));
+        }
+        return null;
     }
 
 }
